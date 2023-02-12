@@ -2,26 +2,31 @@ package com.jgpl
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Screen
 import com.jgpl.screen.gameplay.GamePlayScreen
+import com.jgpl.screen.start.StartScreen
+import com.jgpl.utils.UpdateScreen
 
 class Game : ApplicationAdapter() {
 
-    private val difficult = Difficult.Hard
-
-    private lateinit var gamePlayScreen: GamePlayScreen
+    private lateinit var currentScreen: Screen
 
     override fun create() {
-        gamePlayScreen = GamePlayScreen(difficult)
-        gamePlayScreen.show()
+        currentScreen = StartScreen {
+            currentScreen.dispose()
+            currentScreen = GamePlayScreen()
+            currentScreen.show()
+        }
+        currentScreen.show()
     }
 
     override fun render() {
-        gamePlayScreen.update(Gdx.graphics.deltaTime)
-        gamePlayScreen.render(Gdx.graphics.deltaTime)
+        (currentScreen as UpdateScreen).update(Gdx.graphics.deltaTime)
+        currentScreen.render(Gdx.graphics.deltaTime)
     }
 
     override fun dispose() {
-        gamePlayScreen.dispose()
+        currentScreen.dispose()
     }
 
 }

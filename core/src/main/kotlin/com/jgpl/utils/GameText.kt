@@ -4,6 +4,51 @@ sealed class GameText(
     val en: LanguageText,
     val es: LanguageText
 ) {
+    object Play : GameText(
+        en = LanguageText("Play", 100, 30),
+        es = LanguageText("Jugar", 100, 30)
+    )
+
+    data class Difficult(val option: String) : GameText(
+        en = LanguageText("Difficult:   $option", 100, 30),
+        es = LanguageText("Dificultad:   $option", 100, 30)
+    )
+
+    object Easy : GameText(
+        en = LanguageText("Easy", 30, 30),
+        es = LanguageText("Fácil", 30, 30)
+    )
+
+    object Normal : GameText(
+        en = LanguageText("Normal", 30, 30),
+        es = LanguageText("Normal", 30, 30)
+    )
+
+    object Hard : GameText(
+        en = LanguageText("Hard", 30, 30),
+        es = LanguageText("Difícil", 30, 30)
+    )
+
+    object Extreme : GameText(
+        en = LanguageText("Extreme", 30, 30),
+        es = LanguageText("Extremo", 30, 30)
+    )
+
+    data class LanguageOption(val option: String) : GameText(
+        en = LanguageText("Language:   $option", 100, 30),
+        es = LanguageText("Idioma:   $option", 100, 30)
+    )
+
+    object English : GameText(
+        en = LanguageText("English", 30, 30),
+        es = LanguageText("Inglés", 30, 30)
+    )
+
+    object Spanish : GameText(
+        en = LanguageText("Spanish", 30, 30),
+        es = LanguageText("Español", 30, 30)
+    )
+
     object GameOver : GameText(
         en = LanguageText("Game over", 110, 100),
         es = LanguageText("Fin de partida", 55, 90)

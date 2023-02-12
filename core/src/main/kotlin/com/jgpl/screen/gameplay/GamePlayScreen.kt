@@ -3,15 +3,16 @@ package com.jgpl.screen.gameplay
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.ScreenUtils
-import com.jgpl.Difficult
-import com.jgpl.entity.*
+import com.jgpl.entity.Board
+import com.jgpl.entity.DarkLayer
+import com.jgpl.entity.ScoreArea
+import com.jgpl.entity.Snake
 import com.jgpl.entity.displaytext.*
 import com.jgpl.utils.GameColor
 import com.jgpl.utils.UpdateScreen
+import com.jgpl.utils.difficult
 
-class GamePlayScreen(
-    private val difficult: Difficult
-) : Screen, UpdateScreen {
+class GamePlayScreen : Screen, UpdateScreen {
 
     private lateinit var spriteBatch: SpriteBatch
 
