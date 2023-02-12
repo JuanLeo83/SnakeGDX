@@ -1,7 +1,7 @@
 package com.jgpl.entity
 
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.jgpl.utils.GameColor
 
 class Snake(
     onCollision: () -> Unit
@@ -36,7 +36,7 @@ class Snake(
     fun render() {
         with(shapeRenderer) {
             begin(ShapeRenderer.ShapeType.Filled)
-            color = Color.BLUE
+            color = GameColor.Pink.toGdxColor()
 
             rect(
                 snakeData.positionX.toFloat(),

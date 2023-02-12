@@ -3,30 +3,53 @@ package com.jgpl
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
-import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.ScreenUtils
-import com.jgpl.entity.*
+import com.jgpl.entity.Board
+import com.jgpl.entity.Direction
+import com.jgpl.entity.GameOver
+import com.jgpl.entity.Snake
+import com.jgpl.utils.GameColor
+import com.jgpl.utils.font.GameOverFont
+import com.jgpl.utils.font.RestartFont
+import com.jgpl.utils.font.ScoreFont
 
 class Game : ApplicationAdapter() {
 
+    private lateinit var spriteBatch: SpriteBatch
+
     private lateinit var board: Board
     private lateinit var snake: Snake
+    private lateinit var gameOverLayer: GameOver
+    private lateinit var scoreFont: ScoreFont
+    private lateinit var gameOverFont: GameOverFont
+    private lateinit var restartFont: RestartFont
 
     private val difficult = Difficult.Hard
     private var lastDirection: Direction = Direction.Up
     private var deltaTime = 0f
 
     private var isGameFinished = false
+    private var score: Int = 0
 
     override fun create() {
+        spriteBatch = SpriteBatch()
+        scoreFont = ScoreFont(spriteBatch)
+        gameOverFont = GameOverFont(spriteBatch)
+        restartFont = RestartFont(spriteBatch)
+
         snake = Snake { isGameFinished = true }
-        board = Board(snake)
+        board = Board(snake) { score += 1 }
+        gameOverLayer = GameOver()
     }
 
-    override fun render() {
-        if (isGameFinished) return
-
-        ScreenUtils.clear(Color.BLACK)
+    private fun update() {
+        if (isGameFinished) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                restart()
+            }
+            return
+        }
 
         lastDirection = getInput()
 
@@ -37,9 +60,22 @@ class Game : ApplicationAdapter() {
             snake.move(lastDirection)
             board.update()
         }
+    }
+
+    override fun render() {
+        ScreenUtils.clear(GameColor.Indigo.toGdxColor())
+
+        update()
 
         board.render()
         snake.render()
+        gameOverLayer.render(isGameFinished)
+
+        spriteBatch.begin()
+        scoreFont.render(score)
+        gameOverFont.render(isGameFinished)
+        restartFont.render(isGameFinished)
+        spriteBatch.end()
     }
 
     private fun getInput(): Direction {
@@ -64,8 +100,22 @@ class Game : ApplicationAdapter() {
         }
     }
 
+    private fun restart() {
+        score = 0
+        isGameFinished = false
+        lastDirection = Direction.Up
+        snake = Snake { isGameFinished = true }
+        board = Board(snake) { score += 1 }
+    }
+
     override fun dispose() {
         snake.dispose()
+        board.dispose()
+        scoreFont.dispose()
+        gameOverLayer.dispose()
+        gameOverFont.dispose()
+        restartFont.dispose()
+        spriteBatch.dispose()
     }
 
 }

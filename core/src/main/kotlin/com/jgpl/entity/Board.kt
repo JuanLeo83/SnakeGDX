@@ -1,6 +1,7 @@
 package com.jgpl.entity
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.jgpl.utils.GameColor
 import kotlin.random.Random
 
 
@@ -9,7 +10,8 @@ const val gameSizeX = 80
 const val gameSizeY = 80
 
 class Board(
-    private val snake: Snake
+    private val snake: Snake,
+    private val onEatFood: () -> Unit
 ) {
 
     private val shapeRenderer = ShapeRenderer()
@@ -20,6 +22,7 @@ class Board(
         if (snake.getHeadPosition().first == food.first && snake.getHeadPosition().second == food.second) {
             snake.addPart()
             addFood()
+            onEatFood()
         }
     }
 
@@ -44,7 +47,7 @@ class Board(
     fun render() {
         with(shapeRenderer) {
             begin(ShapeRenderer.ShapeType.Filled)
-            color = com.badlogic.gdx.graphics.Color.GREEN
+            color = GameColor.SkyBlue.toGdxColor()
 
             rect(
                 food.first.toFloat(),
@@ -55,6 +58,10 @@ class Board(
 
             end()
         }
+    }
+
+    fun dispose() {
+        shapeRenderer.dispose()
     }
 
 }
