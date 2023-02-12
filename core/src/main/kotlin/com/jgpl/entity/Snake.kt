@@ -7,12 +7,14 @@ import com.jgpl.utils.gameSizeX
 import com.jgpl.utils.gameSizeY
 
 class Snake(
+    positionX: Int = (gameSizeX / 2) * cellSize,
+    positionY: Int = 50,
     onCollision: () -> Unit
 ) {
 
     private val shapeRenderer = ShapeRenderer()
 
-    private var snakeData = SnakeData(onCollision = onCollision)
+    private var snakeData = SnakeData(positionX, positionY, onCollision = onCollision)
 
     fun move(direction: Direction) {
         snakeData.apply {
@@ -69,8 +71,8 @@ class Snake(
 
 
 private data class SnakeData(
-    var positionX: Int = (gameSizeX / 2) * cellSize,
-    var positionY: Int = 50,
+    var positionX: Int,
+    var positionY: Int,
     var currentDirection: Direction = Direction.Up,
     val onCollision: () -> Unit
 ) {

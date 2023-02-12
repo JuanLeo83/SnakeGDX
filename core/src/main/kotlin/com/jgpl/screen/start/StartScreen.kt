@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.ScreenUtils
 import com.jgpl.entity.Cursor
 import com.jgpl.entity.DarkLayer
+import com.jgpl.entity.Direction
+import com.jgpl.entity.Snake
 import com.jgpl.entity.displaytext.DifficultDisplayText
 import com.jgpl.entity.displaytext.LanguageDisplayText
 import com.jgpl.entity.displaytext.PlayDisplayText
@@ -20,13 +22,16 @@ class StartScreen(
     private lateinit var state: StartState
     private lateinit var cursor: Cursor
     private lateinit var darkLayer: DarkLayer
+    private lateinit var snake1: Snake
+    private lateinit var snake2: Snake
+    private lateinit var snake3: Snake
 
     private lateinit var titleText: TitleDisplayText
     private lateinit var playText: PlayDisplayText
     private lateinit var difficultText: DifficultDisplayText
     private lateinit var languageText: LanguageDisplayText
 
-    private var difficultSelected: Int = 0
+    private var difficultSelected: Int = 1
     private var difficultyOptions =  setDifficultOptions()
     private fun setDifficultOptions(): List<String> {
         return listOf(
@@ -48,6 +53,12 @@ class StartScreen(
 
     private var optionSelected: Int = 3
 
+    private var lastDirection1: Direction = Direction.Up
+    private var lastDirection2: Direction = Direction.Right
+    private var lastDirection3: Direction = Direction.Down
+    private var deltaTime: Float = 0f
+    private var time: Float = 0f
+
     override fun show() {
         spriteBatch = SpriteBatch()
         input = StartInput()
@@ -61,6 +72,10 @@ class StartScreen(
         languageText = LanguageDisplayText(spriteBatch)
 
         cursor = Cursor { optionSelected = it }
+
+        snake1 = Snake(300, 500) {}
+        snake2 = Snake(600, 250) {}
+        snake3= Snake(900, 800) {}
     }
 
     override fun update(delta: Float) {
@@ -84,11 +99,33 @@ class StartScreen(
                 3 -> play()
             }
         }
+
+        time += delta
+        if (time >= 1f) {
+            time = 0f
+            snake1.addPart()
+            snake2.addPart()
+            snake3.addPart()
+            lastDirection1 = input.getRandomDirection(lastDirection1)
+            lastDirection2 = input.getRandomDirection(lastDirection2)
+            lastDirection3 = input.getRandomDirection(lastDirection3)
+        }
+
+        deltaTime += delta
+        if (deltaTime > difficult.speed) {
+            deltaTime = 0f
+            snake1.move(lastDirection1)
+            snake2.move(lastDirection2)
+            snake3.move(lastDirection3)
+        }
     }
 
     override fun render(delta: Float) {
         ScreenUtils.clear(GameColor.Indigo.toGdxColor())
 
+        snake1.render()
+        snake2.render()
+        snake3.render()
         darkLayer.render(true)
         cursor.render()
 
@@ -116,5 +153,8 @@ class StartScreen(
         difficultText.dispose()
         languageText.dispose()
         darkLayer.dispose()
+        snake1.dispose()
+        snake2.dispose()
+        snake3.dispose()
     }
 }
