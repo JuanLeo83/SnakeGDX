@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils
 import com.jgpl.entity.*
 import com.jgpl.utils.GameColor
 import com.jgpl.utils.font.GameOverFont
+import com.jgpl.utils.font.PauseFont
 import com.jgpl.utils.font.RestartFont
 import com.jgpl.utils.font.ScoreFont
 
@@ -22,6 +23,7 @@ class Game : ApplicationAdapter() {
     private lateinit var scoreArea: ScoreArea
     private lateinit var gameOverFont: GameOverFont
     private lateinit var restartFont: RestartFont
+    private lateinit var pauseFont: PauseFont
 
     private val difficult = Difficult.Hard
     private var lastDirection: Direction = Direction.Up
@@ -36,6 +38,7 @@ class Game : ApplicationAdapter() {
         scoreFont = ScoreFont(spriteBatch)
         gameOverFont = GameOverFont(spriteBatch)
         restartFont = RestartFont(spriteBatch)
+        pauseFont = PauseFont(spriteBatch)
         scoreArea = ScoreArea()
 
         snake = Snake { isGameFinished = true }
@@ -82,6 +85,7 @@ class Game : ApplicationAdapter() {
         scoreFont.render(score)
         gameOverFont.render(isGameFinished)
         restartFont.render(isGameFinished)
+        pauseFont.render(isGamePaused)
         spriteBatch.end()
     }
 
@@ -122,6 +126,7 @@ class Game : ApplicationAdapter() {
         darkLayer.dispose()
         gameOverFont.dispose()
         restartFont.dispose()
+        pauseFont.dispose()
         spriteBatch.dispose()
         scoreArea.dispose()
     }
