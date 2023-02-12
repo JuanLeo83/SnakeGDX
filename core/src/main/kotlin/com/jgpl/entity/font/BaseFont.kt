@@ -1,4 +1,4 @@
-package com.jgpl.utils.font
+package com.jgpl.entity.font
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.BitmapFont

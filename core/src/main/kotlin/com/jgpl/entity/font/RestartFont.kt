@@ -1,17 +1,20 @@
-package com.jgpl.utils.font
+package com.jgpl.entity.font
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.jgpl.utils.GameColor
+import com.jgpl.utils.GameText
+import com.jgpl.utils.fontKanit
+import com.jgpl.utils.language
 
 class RestartFont(
     spriteBatch: SpriteBatch
-) : BaseFont(spriteBatch, "Kanit-Medium.ttf") {
+) : BaseFont(spriteBatch, fontKanit) {
 
     init {
         parameter.apply {
-            size = 30
+            size = GameText.RestartMessage.get(language).fontSize
             borderWidth = 3f
             borderColor = GameColor.Pink.toGdxColor()
             color = Color.WHITE
@@ -23,9 +26,11 @@ class RestartFont(
     fun render(show: Boolean) {
         if (!show) return
 
+        val text = GameText.RestartMessage.get(language)
+
         super.render(
-            "Press space key to restart",
-            190f,
+            text.text,
+            text.horizontalPosition.toFloat(),
             (Gdx.graphics.height * 0.4f)
         )
     }
