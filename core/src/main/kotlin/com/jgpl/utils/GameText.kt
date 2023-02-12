@@ -24,6 +24,11 @@ sealed class GameText(
         es = LanguageText("Puntos: $score", 10, 30)
     )
 
+    object PressAnyKey : GameText(
+        en = LanguageText("Press any key", 290, 30),
+        es = LanguageText("Pulsa cualquier tecla", 230, 30)
+    )
+
     fun get(language: Language): LanguageText {
         return when (language) {
             Language.English -> en

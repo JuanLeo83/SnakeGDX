@@ -1,4 +1,4 @@
-package com.jgpl.entity.font
+package com.jgpl.entity.displaytext
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
@@ -8,9 +8,9 @@ import com.jgpl.utils.GameText
 import com.jgpl.utils.fontKanit
 import com.jgpl.utils.language
 
-class ScoreFont(
+class ScoreDisplayText(
     spriteBatch: SpriteBatch
-) : BaseFont(spriteBatch, fontKanit) {
+) : BaseDisplayText(spriteBatch, fontKanit) {
 
     init {
         parameter.apply {

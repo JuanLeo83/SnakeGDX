@@ -1,11 +1,11 @@
-package com.jgpl.entity.font
+package com.jgpl.entity.displaytext
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 
-abstract class BaseFont(
+abstract class BaseDisplayText(
     private val spriteBatch: SpriteBatch,
     fontName: String
 ) {

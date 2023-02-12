@@ -1,4 +1,4 @@
-package com.jgpl.entity.font
+package com.jgpl.entity.displaytext
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
@@ -8,14 +8,14 @@ import com.jgpl.utils.GameText
 import com.jgpl.utils.fontKanit
 import com.jgpl.utils.language
 
-class GameOverFont(
+class RestartDisplayText(
     spriteBatch: SpriteBatch
-) : BaseFont(spriteBatch, fontKanit) {
+) : BaseDisplayText(spriteBatch, fontKanit) {
 
     init {
         parameter.apply {
-            size = GameText.GameOver.get(language).fontSize
-            borderWidth = 10f
+            size = GameText.RestartMessage.get(language).fontSize
+            borderWidth = 3f
             borderColor = GameColor.Pink.toGdxColor()
             color = Color.WHITE
         }
@@ -26,12 +26,12 @@ class GameOverFont(
     fun render(show: Boolean) {
         if (!show) return
 
-        val text = GameText.GameOver.get(language)
+        val text = GameText.RestartMessage.get(language)
 
         super.render(
             text.text,
             text.horizontalPosition.toFloat(),
-            ((Gdx.graphics.height + font.lineHeight / 2) / 2)
+            (Gdx.graphics.height * 0.4f)
         )
     }
 

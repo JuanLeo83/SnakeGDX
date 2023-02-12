@@ -5,12 +5,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.ScreenUtils
 import com.jgpl.Difficult
 import com.jgpl.entity.*
+import com.jgpl.entity.displaytext.*
 import com.jgpl.utils.GameColor
 import com.jgpl.utils.UpdateScreen
-import com.jgpl.entity.font.GameOverFont
-import com.jgpl.entity.font.PauseFont
-import com.jgpl.entity.font.RestartFont
-import com.jgpl.entity.font.ScoreFont
 
 class GamePlayScreen(
     private val difficult: Difficult
@@ -23,12 +20,13 @@ class GamePlayScreen(
 
     private lateinit var darkLayer: DarkLayer
 
-    private lateinit var scoreFont: ScoreFont
+    private lateinit var scoreText: ScoreDisplayText
     private lateinit var scoreArea: ScoreArea
 
-    private lateinit var gameOverFont: GameOverFont
-    private lateinit var restartFont: RestartFont
-    private lateinit var pauseFont: PauseFont
+    private lateinit var gameOverText: GameOverDisplayText
+    private lateinit var restartText: RestartDisplayText
+    private lateinit var pauseText: PauseDisplayText
+    private lateinit var startText: StartDisplayText
 
     private lateinit var input: GamePlayInput
     private lateinit var state: GamePlayState
@@ -37,10 +35,11 @@ class GamePlayScreen(
 
     override fun show() {
         spriteBatch = SpriteBatch()
-        scoreFont = ScoreFont(spriteBatch)
-        gameOverFont = GameOverFont(spriteBatch)
-        restartFont = RestartFont(spriteBatch)
-        pauseFont = PauseFont(spriteBatch)
+        scoreText = ScoreDisplayText(spriteBatch)
+        gameOverText = GameOverDisplayText(spriteBatch)
+        restartText = RestartDisplayText(spriteBatch)
+        pauseText = PauseDisplayText(spriteBatch)
+        startText = StartDisplayText(spriteBatch)
         scoreArea = ScoreArea()
 
         input = GamePlayInput()
@@ -102,10 +101,11 @@ class GamePlayScreen(
         darkLayer.render(!state.isPlaying())
 
         spriteBatch.begin()
-        scoreFont.render(state.score)
-        gameOverFont.render(state.isGameFinished)
-        restartFont.render(state.isGameFinished)
-        pauseFont.render(state.isGamePaused)
+        scoreText.render(state.score)
+        gameOverText.render(state.isGameFinished)
+        restartText.render(state.isGameFinished)
+        pauseText.render(state.isGamePaused)
+        startText.render(!state.isGameStarted)
         spriteBatch.end()
     }
 
@@ -124,11 +124,11 @@ class GamePlayScreen(
     override fun dispose() {
         snake.dispose()
         board.dispose()
-        scoreFont.dispose()
+        scoreText.dispose()
         darkLayer.dispose()
-        gameOverFont.dispose()
-        restartFont.dispose()
-        pauseFont.dispose()
+        gameOverText.dispose()
+        restartText.dispose()
+        pauseText.dispose()
         spriteBatch.dispose()
         scoreArea.dispose()
     }
