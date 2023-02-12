@@ -5,10 +5,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.ScreenUtils
-import com.jgpl.entity.Board
-import com.jgpl.entity.Direction
-import com.jgpl.entity.GameOver
-import com.jgpl.entity.Snake
+import com.jgpl.entity.*
 import com.jgpl.utils.GameColor
 import com.jgpl.utils.font.GameOverFont
 import com.jgpl.utils.font.RestartFont
@@ -22,6 +19,7 @@ class Game : ApplicationAdapter() {
     private lateinit var snake: Snake
     private lateinit var gameOverLayer: GameOver
     private lateinit var scoreFont: ScoreFont
+    private lateinit var scoreArea: ScoreArea
     private lateinit var gameOverFont: GameOverFont
     private lateinit var restartFont: RestartFont
 
@@ -37,6 +35,7 @@ class Game : ApplicationAdapter() {
         scoreFont = ScoreFont(spriteBatch)
         gameOverFont = GameOverFont(spriteBatch)
         restartFont = RestartFont(spriteBatch)
+        scoreArea = ScoreArea()
 
         snake = Snake { isGameFinished = true }
         board = Board(snake) { score += 1 }
@@ -67,6 +66,7 @@ class Game : ApplicationAdapter() {
 
         update()
 
+        scoreArea.render()
         board.render()
         snake.render()
         gameOverLayer.render(isGameFinished)
@@ -116,6 +116,7 @@ class Game : ApplicationAdapter() {
         gameOverFont.dispose()
         restartFont.dispose()
         spriteBatch.dispose()
+        scoreArea.dispose()
     }
 
 }

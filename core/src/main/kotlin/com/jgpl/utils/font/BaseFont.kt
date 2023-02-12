@@ -19,7 +19,7 @@ abstract class BaseFont(
         font.draw(spriteBatch, text, positionX, positionY)
     }
 
-    fun dispose() {
+    open fun dispose() {
         fontGenerator.dispose()
         font.dispose()
     }

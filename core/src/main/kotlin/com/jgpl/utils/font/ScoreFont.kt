@@ -21,7 +21,7 @@ class ScoreFont(
     }
 
     fun render(score: Int) {
-        super.render("Score: $score", 10f, (Gdx.graphics.height - 10).toFloat())
+        super.render("Score: $score", 10f, (Gdx.graphics.height - 15).toFloat())
     }
 
 }

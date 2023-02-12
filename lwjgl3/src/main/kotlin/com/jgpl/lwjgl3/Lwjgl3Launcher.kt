@@ -13,7 +13,7 @@ import com.jgpl.entity.gameSizeY
 fun main() {
     Lwjgl3Application(Game(), Lwjgl3ApplicationConfiguration().apply {
         setTitle("SnakeGDX")
-        setWindowedMode(gameSizeX * cellSize, gameSizeY * cellSize)
+        setWindowedMode(gameSizeX * cellSize, gameSizeY * cellSize + 50)
         setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
     })
 }
