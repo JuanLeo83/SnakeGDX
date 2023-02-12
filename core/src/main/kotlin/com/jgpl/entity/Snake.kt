@@ -2,6 +2,9 @@ package com.jgpl.entity
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.jgpl.utils.GameColor
+import com.jgpl.utils.cellSize
+import com.jgpl.utils.gameSizeX
+import com.jgpl.utils.gameSizeY
 
 class Snake(
     onCollision: () -> Unit

@@ -2,12 +2,8 @@ package com.jgpl.entity
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.jgpl.utils.GameColor
+import com.jgpl.utils.cellSize
 import kotlin.random.Random
-
-
-const val cellSize = 10
-const val gameSizeX = 80
-const val gameSizeY = 80
 
 class Board(
     private val snake: Snake,

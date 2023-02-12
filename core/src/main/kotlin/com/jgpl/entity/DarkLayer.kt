@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.jgpl.utils.GameColor
 
-class DarkLayer() {
+class DarkLayer {
 
     private val shapeRenderer = ShapeRenderer()
 

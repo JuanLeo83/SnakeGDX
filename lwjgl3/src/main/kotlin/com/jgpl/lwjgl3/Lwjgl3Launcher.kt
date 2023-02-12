@@ -5,9 +5,9 @@ package com.jgpl.lwjgl3
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
 import com.jgpl.Game
-import com.jgpl.entity.cellSize
-import com.jgpl.entity.gameSizeX
-import com.jgpl.entity.gameSizeY
+import com.jgpl.utils.cellSize
+import com.jgpl.utils.gameSizeX
+import com.jgpl.utils.gameSizeY
 
 /** Launches the desktop (LWJGL3) application. */
 fun main() {
