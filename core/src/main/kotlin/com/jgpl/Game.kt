@@ -17,7 +17,7 @@ class Game : ApplicationAdapter() {
 
     private lateinit var board: Board
     private lateinit var snake: Snake
-    private lateinit var gameOverLayer: GameOver
+    private lateinit var darkLayer: DarkLayer
     private lateinit var scoreFont: ScoreFont
     private lateinit var scoreArea: ScoreArea
     private lateinit var gameOverFont: GameOverFont
@@ -28,6 +28,7 @@ class Game : ApplicationAdapter() {
     private var deltaTime = 0f
 
     private var isGameFinished = false
+    private var isGamePaused = false
     private var score: Int = 0
 
     override fun create() {
@@ -39,7 +40,7 @@ class Game : ApplicationAdapter() {
 
         snake = Snake { isGameFinished = true }
         board = Board(snake) { score += 1 }
-        gameOverLayer = GameOver()
+        darkLayer = DarkLayer()
     }
 
     private fun update() {
@@ -49,6 +50,12 @@ class Game : ApplicationAdapter() {
             }
             return
         }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            isGamePaused = !isGamePaused
+        }
+
+        if (isGamePaused) return
 
         lastDirection = getInput()
 
@@ -69,7 +76,7 @@ class Game : ApplicationAdapter() {
         scoreArea.render()
         board.render()
         snake.render()
-        gameOverLayer.render(isGameFinished)
+        darkLayer.render(isGameFinished || isGamePaused)
 
         spriteBatch.begin()
         scoreFont.render(score)
@@ -112,7 +119,7 @@ class Game : ApplicationAdapter() {
         snake.dispose()
         board.dispose()
         scoreFont.dispose()
-        gameOverLayer.dispose()
+        darkLayer.dispose()
         gameOverFont.dispose()
         restartFont.dispose()
         spriteBatch.dispose()
