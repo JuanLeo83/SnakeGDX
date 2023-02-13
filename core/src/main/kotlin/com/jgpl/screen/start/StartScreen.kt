@@ -7,10 +7,7 @@ import com.jgpl.entity.Cursor
 import com.jgpl.entity.DarkLayer
 import com.jgpl.entity.Direction
 import com.jgpl.entity.Snake
-import com.jgpl.entity.displaytext.DifficultDisplayText
-import com.jgpl.entity.displaytext.LanguageDisplayText
-import com.jgpl.entity.displaytext.PlayDisplayText
-import com.jgpl.entity.displaytext.TitleDisplayText
+import com.jgpl.entity.displaytext.*
 import com.jgpl.utils.*
 
 class StartScreen(
@@ -30,6 +27,8 @@ class StartScreen(
     private lateinit var playText: PlayDisplayText
     private lateinit var difficultText: DifficultDisplayText
     private lateinit var languageText: LanguageDisplayText
+    private lateinit var supportText: SupportOptionsDisplayText
+    private lateinit var supportStartText: SupportStartDisplayText
 
     private var difficultSelected: Int = 1
     private var difficultyOptions =  setDifficultOptions()
@@ -70,12 +69,14 @@ class StartScreen(
         playText = PlayDisplayText(spriteBatch)
         difficultText = DifficultDisplayText(spriteBatch)
         languageText = LanguageDisplayText(spriteBatch)
+        supportText = SupportOptionsDisplayText(spriteBatch)
+        supportStartText = SupportStartDisplayText(spriteBatch)
 
         cursor = Cursor { optionSelected = it }
 
         snake1 = Snake(300, 500) {}
         snake2 = Snake(600, 250) {}
-        snake3= Snake(900, 800) {}
+        snake3 = Snake(900, 800) {}
     }
 
     override fun update(delta: Float) {
@@ -134,6 +135,8 @@ class StartScreen(
         playText.render()
         difficultText.render(difficultyOptions[difficultSelected])
         languageText.render(languageOptions[languageSelected])
+        supportText.render(optionSelected != 3)
+        supportStartText.render(optionSelected == 3)
         spriteBatch.end()
     }
 
@@ -152,6 +155,8 @@ class StartScreen(
         playText.dispose()
         difficultText.dispose()
         languageText.dispose()
+        supportText.dispose()
+        supportStartText.dispose()
         darkLayer.dispose()
         snake1.dispose()
         snake2.dispose()

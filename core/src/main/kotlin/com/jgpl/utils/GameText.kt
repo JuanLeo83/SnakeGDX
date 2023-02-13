@@ -74,6 +74,16 @@ sealed class GameText(
         es = LanguageText("Pulsa cualquier tecla", 230, 30)
     )
 
+    object SupportMenuOptionsText : GameText(
+        en = LanguageText("Press space to change option", 10, 15),
+        es = LanguageText("Presiona espacio para cambiar de opción", 10, 15)
+    )
+
+    object SupportMenuStartText : GameText(
+        en = LanguageText("Press space to start", 10, 15),
+        es = LanguageText("Presiona espacio para empezar", 10, 15)
+    )
+
     fun get(language: Language): LanguageText {
         return when (language) {
             Language.English -> en
