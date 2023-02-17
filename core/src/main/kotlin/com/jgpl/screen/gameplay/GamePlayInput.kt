@@ -2,6 +2,7 @@ package com.jgpl.screen.gameplay
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
+import com.jgpl.entity.CursorMovement
 import com.jgpl.entity.Direction
 
 class GamePlayInput {
@@ -33,5 +34,17 @@ class GamePlayInput {
     fun getRestart(): Boolean = Gdx.input.isKeyJustPressed(Input.Keys.SPACE)
 
     fun getPause(): Boolean = Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)
+
+    fun getMove(): CursorMovement {
+        return if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            CursorMovement.Up
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            CursorMovement.Down
+        } else {
+            CursorMovement.None
+        }
+    }
+
+    fun getOptionSelection(): Boolean = Gdx.input.isKeyJustPressed(Input.Keys.SPACE)
 
 }

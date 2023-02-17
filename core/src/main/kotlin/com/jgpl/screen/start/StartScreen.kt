@@ -72,7 +72,7 @@ class StartScreen(
         supportText = SupportOptionsDisplayText(spriteBatch)
         supportStartText = SupportStartDisplayText(spriteBatch)
 
-        cursor = Cursor { optionSelected = it }
+        cursor = Cursor(3) { optionSelected = it }
 
         snake1 = Snake(300, 500) {}
         snake2 = Snake(600, 250) {}

@@ -59,7 +59,7 @@ sealed class GameText(
         es = LanguageText("Pausa", 230, 100)
     )
 
-    object RestartMessage : GameText(
+    object NewGameMessage : GameText(
         en = LanguageText("Press space key to restart", 190, 30),
         es = LanguageText("Presiona espacio para reiniciar", 150, 30)
     )
@@ -82,6 +82,26 @@ sealed class GameText(
     object SupportMenuStartText : GameText(
         en = LanguageText("Press space to start", 10, 15),
         es = LanguageText("Presiona espacio para empezar", 10, 15)
+    )
+
+    object Continue : GameText(
+        en = LanguageText("Continue", 100, 30),
+        es = LanguageText("Continuar", 100, 30)
+    )
+
+    object Restart : GameText(
+        en = LanguageText("Restart", 100, 30),
+        es = LanguageText("Reiniciar", 100, 30)
+    )
+
+    object SupportRestartOptionsText : GameText(
+        en = LanguageText("Press space to restart", 10, 15),
+        es = LanguageText("Presiona espacio para reiniciar", 10, 15)
+    )
+
+    object SupportContinueOptionsText : GameText(
+        en = LanguageText("Press space to continue", 10, 15),
+        es = LanguageText("Presiona espacio para continuar", 10, 15)
     )
 
     fun get(language: Language): LanguageText {

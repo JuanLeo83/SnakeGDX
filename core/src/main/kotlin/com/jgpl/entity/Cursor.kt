@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.jgpl.utils.GameColor
 
 class Cursor(
+    initPosition: Int,
     private val onMove: (Int) -> Unit
 ) {
 
@@ -11,8 +12,8 @@ class Cursor(
 
     private val shapeRenderer = ShapeRenderer()
 
-    private var cursorPosition = 3
-    private var lastPosition = 3
+    private var cursorPosition = initPosition
+    private var lastPosition = cursorPosition
 
     private var position = 170f
 

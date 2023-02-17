@@ -3,10 +3,7 @@ package com.jgpl.screen.gameplay
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.ScreenUtils
-import com.jgpl.entity.Board
-import com.jgpl.entity.DarkLayer
-import com.jgpl.entity.ScoreArea
-import com.jgpl.entity.Snake
+import com.jgpl.entity.*
 import com.jgpl.entity.displaytext.*
 import com.jgpl.utils.GameColor
 import com.jgpl.utils.UpdateScreen
@@ -24,29 +21,43 @@ class GamePlayScreen : Screen, UpdateScreen {
     private lateinit var scoreText: ScoreDisplayText
     private lateinit var scoreArea: ScoreArea
 
+    private lateinit var cursor: Cursor
+
     private lateinit var gameOverText: GameOverDisplayText
+    private lateinit var newGameText: NewGameDisplayText
     private lateinit var restartText: RestartDisplayText
+    private lateinit var continueText: ContinueDisplayText
     private lateinit var pauseText: PauseDisplayText
     private lateinit var startText: StartDisplayText
+    private lateinit var supportRestartText: SupportRestartDisplayText
+    private lateinit var supportContinueDisplayText: SupportContinueDisplayText
 
     private lateinit var input: GamePlayInput
     private lateinit var state: GamePlayState
 
     private var deltaTime = 0f
 
+    private var optionSelected: Int = 2
+
     override fun show() {
         spriteBatch = SpriteBatch()
         scoreText = ScoreDisplayText(spriteBatch)
         gameOverText = GameOverDisplayText(spriteBatch)
+        newGameText = NewGameDisplayText(spriteBatch)
         restartText = RestartDisplayText(spriteBatch)
+        continueText = ContinueDisplayText(spriteBatch)
         pauseText = PauseDisplayText(spriteBatch)
         startText = StartDisplayText(spriteBatch)
+        supportRestartText = SupportRestartDisplayText(spriteBatch)
+        supportContinueDisplayText = SupportContinueDisplayText(spriteBatch)
         scoreArea = ScoreArea()
 
         input = GamePlayInput()
         state = GamePlayState()
 
         darkLayer = DarkLayer()
+
+        cursor = Cursor(2) { optionSelected = it }
 
         initEntities()
     }
@@ -70,7 +81,21 @@ class GamePlayScreen : Screen, UpdateScreen {
             state.pause()
         }
 
-        if (state.isGamePaused) return
+        if (state.isGamePaused) {
+            val inputPressed = input.getMove()
+            cursor.move(inputPressed)
+
+            if (input.getOptionSelection()) {
+                when (optionSelected) {
+                    1 -> restart()
+                    2 -> state.pause()
+                }
+            }
+            return
+        }
+
+        optionSelected = 2
+        cursor.move(CursorMovement.Up)
 
         state.lastDirection = input.getDirection(state.lastDirection)
 
@@ -100,13 +125,20 @@ class GamePlayScreen : Screen, UpdateScreen {
         board.render()
         snake.render()
         darkLayer.render(!state.isPlaying())
+        if (state.isGamePaused) {
+            cursor.render()
+        }
 
         spriteBatch.begin()
         scoreText.render(state.score)
         gameOverText.render(state.isGameFinished)
-        restartText.render(state.isGameFinished)
+        newGameText.render(state.isGameFinished)
         pauseText.render(state.isGamePaused)
         startText.render(!state.isGameStarted)
+        continueText.render(state.isGamePaused)
+        restartText.render(state.isGamePaused)
+        supportRestartText.render(state.isGamePaused && optionSelected == 1)
+        supportContinueDisplayText.render(state.isGamePaused && optionSelected == 2)
         spriteBatch.end()
     }
 
@@ -128,10 +160,15 @@ class GamePlayScreen : Screen, UpdateScreen {
         scoreText.dispose()
         darkLayer.dispose()
         gameOverText.dispose()
-        restartText.dispose()
+        newGameText.dispose()
         pauseText.dispose()
         spriteBatch.dispose()
         scoreArea.dispose()
+        cursor.dispose()
+        continueText.dispose()
+        restartText.dispose()
+        supportRestartText.dispose()
+        supportContinueDisplayText.dispose()
     }
 
 }

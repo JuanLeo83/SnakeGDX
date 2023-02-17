@@ -7,13 +7,13 @@ import com.jgpl.utils.GameText
 import com.jgpl.utils.fontKanit
 import com.jgpl.utils.language
 
-class RestartDisplayText(
+class ContinueDisplayText(
     spriteBatch: SpriteBatch
 ) : BaseDisplayText(spriteBatch, fontKanit) {
 
     init {
         parameter.apply {
-            size = GameText.Restart.get(language).fontSize
+            size = GameText.Continue.get(language).fontSize
             borderWidth = 3f
             borderColor = GameColor.Pink.toGdxColor()
             color = Color.WHITE
@@ -25,12 +25,12 @@ class RestartDisplayText(
     fun render(show: Boolean) {
         if (!show) return
 
-        val text = GameText.Restart.get(language)
+        val text = GameText.Continue.get(language)
 
         super.render(
             text.text,
             text.horizontalPosition.toFloat(),
-            130f
+            180f
         )
     }
 
